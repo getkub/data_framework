@@ -1,0 +1,45 @@
+## Start of Template - time and lookups
+
+# Various Time and lookup parameters
+
+token.0.token = \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3,6}
+token.0.replacementType = timestamp
+token.0.replacement = %Y-%m-%d %H:%M:%S,%f
+
+token.1.token = \d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2}.\d{3,6}
+token.1.replacementType = timestamp
+token.1.replacement = %m-%d-%Y %H:%M:%S.%f
+
+token.2.token = \d{2}/\w{3}/\d{4}:\d{2}:\d{2}:\d{2}.\d{3,6}
+token.2.replacementType = timestamp
+token.2.replacement = %d/%b/%Y:%H:%M:%S.%f
+
+token.3.token = \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}
+token.3.replacementType = timestamp
+token.3.replacement = %Y-%m-%d %H:%M:%S
+
+token.4.token = \d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}
+token.4.replacementType = timestamp
+token.4.replacement = %Y-%m-%dT%H:%M:%S
+
+## replace timestamp 03/11/10 01:12:01 PM
+token.5.token = ^\d{2}\/\d{2}\/\d{2,4}\s+\d{2}:\d{2}:\d{2}\s+[AaPp][Mm]
+token.5.replacementType = timestamp
+token.5.replacement = %m/%d/%Y %I:%M:%S %p
+
+## For DHCP timestamps 04/18/17,17:14:48
+token.6.token = \d{2}\/\d{2}\/\d{2}\,\d{2}:\d{2}:\d{2}
+token.6.replacementType = timestamp
+token.6.replacement = %m/%d/%y,%H:%M:%S
+
+## For defence Center Tue Nov 28 10:19:17 2016 ## 
+token.7.token = \w{3}\s+\w{3}\s+\d{2}\s+\d{2}:\d{2}:\d{2}\s+\d{4}
+token.7.replacementType = timestamp
+token.7.replacement = %a %b %d %T %Y
+
+## For AIX timestamps Feb 28 15:37:01
+token.8.token = \w{3}\s+\d{2}\s+\d{2}:\d{2}:\d{2}
+token.8.replacementType = timestamp
+token.8.replacement = %b %d %T
+
+## End of Template - time and lookups

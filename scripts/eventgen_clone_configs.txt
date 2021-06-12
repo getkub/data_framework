@@ -1,0 +1,25 @@
+
+## Start of Template - clone configs
+mode = sample
+sampletype = csv
+
+# backfill sufficiently
+backfill = -15m
+
+#outputMode = file
+#fileName = /tmp/eventgen.test.log
+
+
+outputMode = splunkstream
+splunkHost = localhost
+splunkUser = myuser
+splunkPass = mypass
+splunkPort = 8089
+
+# Interval chosen So that it won't be triggered within the time of execution
+interval = 36000
+earliest = -60m
+latest = now
+
+# END will determine exactly one replication
+end=1
