@@ -1,0 +1,116 @@
+2021-11-25 13:51:40 eventgen        ERROR    MainProcess No module named 'requests_futures'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/output/scsout.py", line 5, in <module>
+    from requests_futures.sessions import FuturesSession
+ModuleNotFoundError: No module named 'requests_futures'
+2021-11-25 13:51:40 eventgen        ERROR    MainProcess No module named 'jinja2'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/generator/jinja.py", line 6, in <module>
+    from jinja2 import nodes
+ModuleNotFoundError: No module named 'jinja2'
+2021-11-25 13:51:40 eventgen        ERROR    MainProcess Exception <class 'PermissionError'> happened.
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/lib/generatorplugin.py", line 50, in send_events
+    self._out.flush(endOfInterval=True)
+  File "/tmp/ev_src2/splunk_eventgen/lib/eventgenoutput.py", line 100, in flush
+    outputer = self.outputPlugin(self._sample, self.output_counter)
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/output/file.py", line 33, in __init__
+    self._fileHandle = open(self._file, "a")
+PermissionError: [Errno 13] Permission denied: '/tmp/ciscosample.log'
+2021-11-25 13:51:40 eventgen        ERROR    MainProcess [Errno 13] Permission denied: '/tmp/ciscosample.log'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 346, in _generator_do_work
+    item.run(output_counter=output_counter)
+  File "/tmp/ev_src2/splunk_eventgen/lib/generatorplugin.py", line 213, in run
+    self.gen(
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/generator/default.py", line 77, in gen
+    self.send_events(send_objects, startTime)
+  File "/tmp/ev_src2/splunk_eventgen/lib/generatorplugin.py", line 57, in send_events
+    raise e
+  File "/tmp/ev_src2/splunk_eventgen/lib/generatorplugin.py", line 50, in send_events
+    self._out.flush(endOfInterval=True)
+  File "/tmp/ev_src2/splunk_eventgen/lib/eventgenoutput.py", line 100, in flush
+    outputer = self.outputPlugin(self._sample, self.output_counter)
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/output/file.py", line 33, in __init__
+    self._fileHandle = open(self._file, "a")
+PermissionError: [Errno 13] Permission denied: '/tmp/ciscosample.log'
+2021-11-25 13:51:58 eventgen        ERROR    MainProcess No module named 'requests_futures'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/output/scsout.py", line 5, in <module>
+    from requests_futures.sessions import FuturesSession
+ModuleNotFoundError: No module named 'requests_futures'
+2021-11-25 13:51:58 eventgen        ERROR    MainProcess No module named 'jinja2'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/generator/jinja.py", line 6, in <module>
+    from jinja2 import nodes
+ModuleNotFoundError: No module named 'jinja2'
+2021-11-25 13:53:22 eventgen        ERROR    MainProcess No module named 'requests_futures'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/output/scsout.py", line 5, in <module>
+    from requests_futures.sessions import FuturesSession
+ModuleNotFoundError: No module named 'requests_futures'
+2021-11-25 13:53:22 eventgen        ERROR    MainProcess No module named 'jinja2'
+Traceback (most recent call last):
+  File "/tmp/ev_src2/splunk_eventgen/eventgen_core.py", line 455, in _initializePlugins
+    module = imp.load_module(base, mod_name, mod_path, mod_desc)
+  File "/usr/lib/python3.8/imp.py", line 234, in load_module
+    return load_source(name, filename, file)
+  File "/usr/lib/python3.8/imp.py", line 171, in load_source
+    module = _load(spec)
+  File "<frozen importlib._bootstrap>", line 702, in _load
+  File "<frozen importlib._bootstrap>", line 671, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 848, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/tmp/ev_src2/splunk_eventgen/lib/plugins/generator/jinja.py", line 6, in <module>
+    from jinja2 import nodes
+ModuleNotFoundError: No module named 'jinja2'

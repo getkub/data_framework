@@ -1,0 +1,4 @@
+---
+
+- import_tasks: build_logs_from_template.yml
+  tags: [build_logs_from_template]
