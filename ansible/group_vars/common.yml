@@ -1,0 +1,13 @@
+---
+
+# Common variables for DEV
+src_base: ".."
+src_base_playbook: "{{playbook_dir}}"
+project: "df"
+dest_base: "/tmp/{{ansible_user_id}}/{{project}}"
+configs: "configs"
+buildDir: "buildDir"
+
+# Ansible Directories
+ansible_dir: "{{playbook_dir}}/../../ansible"
+config_dir: "{{playbook_dir}}/../../configs"

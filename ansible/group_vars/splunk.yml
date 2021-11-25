@@ -1,0 +1,16 @@
+---
+
+## ============================================= ##
+# Common variables
+## ============================================= ##
+mgmtPort: 8089
+httpPort: 8000
+kvstorePort: 8191
+fwdPort: 9997
+replicationPort: 8080
+
+protocol: "http"
+
+# splunk app specific
+splunkadminuser: "admin"
+splunkadminpass: "changedme"

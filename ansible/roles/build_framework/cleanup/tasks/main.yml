@@ -1,0 +1,4 @@
+---
+
+- import_tasks: clone_rsync.yml
+  tags: [clone_rsync]
