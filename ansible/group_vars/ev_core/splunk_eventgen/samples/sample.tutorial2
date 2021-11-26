@@ -1,0 +1,20 @@
+Mar  1 00:01:50.575: %SYS-5-CONFIG_I: Configured from console by console
+Mar  1 00:01:51.047: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+Mar  1 00:01:52.047: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+Mar  1 00:02:25.499: %IP-4-DUPADDR: Duplicate address 192.168.1.1 on FastEthernet0/0, sourced by c201.168c.0000
+Mar  1 00:04:37.815: OSPF: Rcv pkt from 192.168.1.2, FastEthernet0/0: Mismatch Authentication type. Input packet specified type 0, we use type 2
+Mar  1 00:04:42.135: OSPF: Send with youngest Key 1
+Mar  1 00:04:47.607: OSPF: Rcv pkt from 192.168.1.2, FastEthernet0/0: Mismatch Authentication type. Input packet specified type 0, we use type 2
+Mar  1 00:04:52.071: OSPF: Send with youngest Key 1
+Mar  1 00:04:57.091: OSPF: Rcv pkt from 192.168.1.2, FastEthernet0/0: Mismatch Authentication type. Input packet specified type 0, we use type 2
+Mar  1 00:05:01.095: OSPF: Send with youngest Key 1
+Mar  5 07:01:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 200 to area 100
+Mar  5 07:02:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 100 to area 200
+Mar  5 07:03:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 200 to area 100
+Mar  5 07:04:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 100 to area 200
+Mar  5 07:05:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 200 to area 100
+Mar  5 07:06:23.123: %OSPF-6-AREACHG: 172.16.1.0 255.255.255.0 changed from area 100 to area 200
+Mar  7 02:22:01.345: %ENVM-6-PSCHANGE: Power Supply 1 changed from Zytek AC Power Supply to removed
+Mar  7 02:24:01.345: %ENVM-6-PSCHANGE: Power Supply 1 changed from removed to Zytek AC Power Supply
+Mar  7 02:30:01.345: %ENVM-6-PSCHANGE: Power Supply 1 changed from Zytek AC Power Supply to removed
+Mar  7 02:35:01.345: %ENVM-6-PSCHANGE: Power Supply 1 changed from removed to Zytek AC Power Supply
