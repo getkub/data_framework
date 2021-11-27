@@ -7,6 +7,6 @@
     - "{{playbook_dir}}/../group_vars/df.yml"
   roles:
     - "{{playbook_dir}}/../roles/common"
-    - "{{playbook_dir}}/../roles/build_framework/clone_core"
-    - "{{playbook_dir}}/../roles/build_framework/build_logs"
+    - "{{playbook_dir}}/../roles/build_data/clone_core"
+    - "{{playbook_dir}}/../roles/build_data/build_logs"
 
