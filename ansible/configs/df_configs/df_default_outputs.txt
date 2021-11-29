@@ -1,0 +1,12 @@
+
+## Default OUTPUT settings
+
+#outputMode = file
+#fileName = /tmp/eventgen.test.log
+
+
+outputMode = splunkstream
+splunkHost = localhost
+splunkUser = myuser
+splunkPass = mypass
+splunkPort = 8089
