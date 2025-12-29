@@ -4,7 +4,6 @@ security_content/*
 *.pyo
 *.pyd
 __pycache__/
-*.log
 *.sqlite3
 *.db
 *.egg
