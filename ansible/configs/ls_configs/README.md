@@ -1,0 +1,2 @@
+## Core configs for Logstash
+
