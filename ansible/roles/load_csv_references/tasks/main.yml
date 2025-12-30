@@ -1,16 +1,22 @@
 ---
-- name: Combine all reference CSV files
-  shell: |
-    cat {{ playbook_dir }}/../../data/sequence/security/01*.csv | head -1 > /tmp/combined_references.csv
-    tail -n +2 {{ playbook_dir }}/../../data/sequence/security/01*.csv >> /tmp/combined_references.csv
-  args:
-    executable: /bin/bash
+- name: Find all CSV reference files
+  find:
+    paths: "{{ playbook_dir }}/../../data/sequence/security"
+    patterns: "01*.csv"
+  register: csv_files
 
-- name: Read combined CSV data
+- name: Read all CSV files
   read_csv:
-    path: /tmp/combined_references.csv
+    path: "{{ item.path }}"
     key: id
-  register: csv_data
+  register: csv_file_data
+  loop: "{{ csv_files.files }}"
+
+- name: Combine CSV data from all files
+  set_fact:
+    csv_data:
+      dict: "{{ csv_file_data.results | map(attribute='dict') | combine }}"
+      list: "{{ csv_file_data.results | map(attribute='list') | flatten }}"
 
 - name: Filter references by IDs across all CSV files (if reference_ids provided)
   set_fact:

@@ -8,7 +8,7 @@
 
 - name: Determine data source directory for {{ ref_filename }}
   set_fact:
-    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security/{{ 'linux' if 'linux' in ref_data_stream else 'windows' if 'windows' in ref_data_stream else 'network' }}"
+    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security/{{ ref_data_stream | regex_replace('logs-(.+?)\\..+', '\\1') }}"
 
 - name: Find specific .ndjson file {{ ref_filename }}
   find:
