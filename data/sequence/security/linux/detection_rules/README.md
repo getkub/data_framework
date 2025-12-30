@@ -1,0 +1,1 @@
+Copy here the rules temporarily for AI to generate the sample dataset

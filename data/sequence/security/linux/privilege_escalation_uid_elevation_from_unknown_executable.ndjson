@@ -1,0 +1,2 @@
+{"@timestamp":"2025-12-29T10:00:00.000Z","event":{"type":"change","action":"uid_change"},"host":{"os":{"type":"linux"},"name":"linux-host"},"user":{"id":"0"},"process":{"executable":"/tmp/evil","parent":{"name":"bash"}},"agent":{"id":"agent-123"}}
+{"@timestamp":"2025-12-29T10:00:01.000Z","event":{"type":"change","action":"uid_change"},"host":{"os":{"type":"linux"},"name":"linux-host"},"user":{"id":"0"},"process":{"executable":"/var/tmp/malware","parent":{"name":"sh"}},"agent":{"id":"agent-123"}}

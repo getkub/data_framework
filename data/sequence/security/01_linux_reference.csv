@@ -1,0 +1,11 @@
+id,filename,rule_name,logic
+101,command_and_control_frequent_egress_netcon_from_sus_executable.ndjson,High Number of Egress Network Connections from Unusual Executable,Detects high number of egress network connections from unusual executables, indicating C2 or malware activity
+102,defense_evasion_base64_decoding_activity.ndjson,Unusual Base64 Encoding/Decoding Activity,Detects unusual base64 encoding/decoding activity used to obfuscate malicious data
+103,discovery_port_scanning_activity_from_compromised_host.ndjson,Potential Port Scanning Activity from Compromised Host,Detects port scanning activity from compromised hosts for reconnaissance
+104,discovery_subnet_scanning_activity_from_compromised_host.ndjson,Potential Subnet Scanning Activity from Compromised Host,Detects subnet scanning to identify live hosts within network ranges
+105,execution_remote_code_execution_via_postgresql.ndjson,Potential Code Execution via Postgresql,Monitors for code execution attempts within PostgreSQL environment via shell commands
+106,exfiltration_unusual_file_transfer_utility_launched.ndjson,Unusual File Transfer Utility Launched,Detects execution of file transfer utilities that may be used for data exfiltration
+107,impact_potential_bruteforce_malware_infection.ndjson,Potential Malware-Driven SSH Brute Force Attempt,Identifies malware-driven SSH brute force attacks from compromised Linux hosts
+108,persistence_web_server_sus_child_spawned.ndjson,Unusual Process Spawned from Web Server Parent,Detects unusual processes spawned from web servers indicating potential webshells
+109,persistence_web_server_sus_command_execution.ndjson,Unusual Command Execution from Web Server Parent,Detects command execution from web server processes for persistence or C2
+110,privilege_escalation_uid_elevation_from_unknown_executable.ndjson,UID Elevation from Previously Unknown Executable,Monitors for privilege escalation to root via unknown executables
