@@ -1,5 +1,5 @@
 id,filename,rule_name,logic
-101,command_and_control_frequent_egress_netcon_from_sus_executable.ndjson,High Number of Egress Network Connections from Unusual Executable,Detects high number of egress network connections from unusual executables, indicating C2 or malware activity
+101,command_and_control_frequent_egress_netcon_from_sus_executable.ndjson,High Number of Egress Network Connections from Unusual Executable,Detects high number of egress network connections from unusual executables indicating C2 or malware activity
 102,defense_evasion_base64_decoding_activity.ndjson,Unusual Base64 Encoding/Decoding Activity,Detects unusual base64 encoding/decoding activity used to obfuscate malicious data
 103,discovery_port_scanning_activity_from_compromised_host.ndjson,Potential Port Scanning Activity from Compromised Host,Detects port scanning activity from compromised hosts for reconnaissance
 104,discovery_subnet_scanning_activity_from_compromised_host.ndjson,Potential Subnet Scanning Activity from Compromised Host,Detects subnet scanning to identify live hosts within network ranges
