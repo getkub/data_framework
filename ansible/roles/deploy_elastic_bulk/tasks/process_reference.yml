@@ -9,7 +9,7 @@
 - name: Find bulk file for {{ ref_filename }}
   find:
     paths: "{{ bulk_source_dir }}"
-    patterns: "{{ ref_filename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+    patterns: "{{ ref_filename | splitext | first }}.bulk.ndjson"
   register: bulk_files
 
 - name: Deploy {{ ref_filename }} to Elasticsearch

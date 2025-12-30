@@ -11,12 +11,11 @@ export ELASTIC_API_KEY="your_api_key_here"
 ### Build & Deploy Specific Datasets
 ```bash
 # Build bulk files for reference IDs 401, 403, 101
-ansible-playbook -i hosts main_playbooks/build_by_id.yml \
+ansible-playbook -i hosts elastic_playbooks/build_by_id.yml \
   -e "reference_ids=[401,403,101]"
 
-# Deploy the built files to Elasticsearch
-ansible-playbook -i hosts main_playbooks/deploy_by_id.yml \
-  -e "reference_ids=[401,403,101]"
+# Deploy ALL built bulk files to Elasticsearch
+ansible-playbook -i hosts elastic_playbooks/deploy_bulk.yml
 ```
 
 ## Reference IDs
@@ -63,26 +62,26 @@ export ELASTIC_API_KEY="your_api_key_here"
 
 ### Single Dataset
 ```bash
-ansible-playbook -i hosts main_playbooks/build_by_id.yml -e "reference_ids=[401]"
-ansible-playbook -i hosts main_playbooks/deploy_by_id.yml -e "reference_ids=[401]"
+ansible-playbook -i hosts elastic_playbooks/build_by_id.yml -e "reference_ids=[401]"
+ansible-playbook -i hosts elastic_playbooks/deploy_bulk.yml
 ```
 
 ### Multiple Datasets
 ```bash
-ansible-playbook -i hosts main_playbooks/build_by_id.yml -e "reference_ids=[401,403,101]"
-ansible-playbook -i hosts main_playbooks/deploy_by_id.yml -e "reference_ids=[401,403,101]"
+ansible-playbook -i hosts elastic_playbooks/build_by_id.yml -e "reference_ids=[401,403,101]"
+ansible-playbook -i hosts elastic_playbooks/deploy_bulk.yml
 ```
 
 ### Windows Security Data
 ```bash
-ansible-playbook -i hosts main_playbooks/build_by_id.yml -e "reference_ids=[401,402,403]"
-ansible-playbook -i hosts main_playbooks/deploy_by_id.yml -e "reference_ids=[401,402,403]"
+ansible-playbook -i hosts elastic_playbooks/build_by_id.yml -e "reference_ids=[401,402,403]"
+ansible-playbook -i hosts elastic_playbooks/deploy_bulk.yml
 ```
 
 ### Linux Security Data
 ```bash
-ansible-playbook -i hosts main_playbooks/build_by_id.yml -e "reference_ids=[101,102,103]"
-ansible-playbook -i hosts main_playbooks/deploy_by_id.yml -e "reference_ids=[101,102,103]"
+ansible-playbook -i hosts elastic_playbooks/build_by_id.yml -e "reference_ids=[101,102,103]"
+ansible-playbook -i hosts elastic_playbooks/deploy_bulk.yml
 ```
 
 ## Prerequisites

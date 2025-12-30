@@ -20,7 +20,7 @@
   command: |
     python3 "{{ role_path }}/files/convert_ndjson_to_bulk.py"
             "{{ ndjson_file.path }}"
-            "{{ build_dir | default(dest_base + '/bulk') }}/{{ ndjson_file.path | basename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+            "{{ build_dir | default(dest_base + '/bulk') }}/{{ ndjson_file.path | basename | splitext | first }}.bulk.ndjson"
             "{{ time_offset_minutes | default(0) }}"
   loop: "{{ ndjson_files.files }}"
   loop_control:
@@ -31,7 +31,7 @@
 
 - name: Verify {{ ref_filename }} bulk file was created
   stat:
-    path: "{{ build_dir | default(dest_base + '/bulk') }}/{{ item.path | basename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+    path: "{{ build_dir | default(dest_base + '/bulk') }}/{{ item.path | basename | splitext | first }}.bulk.ndjson"
   loop: "{{ ndjson_files.files }}"
   register: bulk_files_check
   when: ndjson_files.files | length > 0

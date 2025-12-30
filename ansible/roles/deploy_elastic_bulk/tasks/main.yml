@@ -1,13 +1,19 @@
 ---
-- name: Process each selected reference for deployment
-  include_tasks: "{{playbook_dir}}/../roles/deploy_elastic_bulk/tasks/process_reference.yml"
-  loop: "{{ selected_references | default([]) }}"
+- name: Find all bulk files to deploy
+  find:
+    paths: "{{ bulk_source_dir }}"
+    patterns: "*.bulk.ndjson"
+  register: all_bulk_files
+
+- name: Process each bulk file for deployment
+  include_tasks: "{{playbook_dir}}/../roles/deploy_elastic_bulk/tasks/process_bulk_file.yml"
+  loop: "{{ all_bulk_files.files }}"
   loop_control:
-    loop_var: reference
-  when: selected_references is defined and selected_references | length > 0
+    loop_var: bulk_file
+  when: all_bulk_files.files | length > 0
 
 - name: Display final deployment results
   debug:
     msg: |
-      Successfully processed {{ selected_references | length }} references for deployment
-  when: selected_references is defined and selected_references | length > 0
+      Successfully processed {{ all_bulk_files.files | length }} bulk files for deployment
+  when: all_bulk_files.files | length > 0

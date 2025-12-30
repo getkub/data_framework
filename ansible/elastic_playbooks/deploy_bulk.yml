@@ -1,0 +1,11 @@
+---
+- name: Deploy All Bulk Files
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - "{{playbook_dir}}/../group_vars/common.yml"
+    - "{{playbook_dir}}/../group_vars/elastic.yml"
+
+  roles:
+    - "{{playbook_dir}}/../roles/load_csv_references"
+    - "{{playbook_dir}}/../roles/deploy_elastic_bulk"

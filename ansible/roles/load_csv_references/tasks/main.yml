@@ -12,9 +12,15 @@
     key: id
   register: csv_data
 
-- name: Filter references by IDs across all CSV files
+- name: Filter references by IDs across all CSV files (if reference_ids provided)
   set_fact:
     selected_references: "{{ csv_data.dict | dict2items | selectattr('key', 'in', reference_ids) | map(attribute='value') | list }}"
+  when: reference_ids is defined
+
+- name: Use all references if no filtering requested
+  set_fact:
+    selected_references: "{{ csv_data.dict | dict2items | map(attribute='value') | list }}"
+  when: reference_ids is not defined
 
 - name: Display selected references
   debug:

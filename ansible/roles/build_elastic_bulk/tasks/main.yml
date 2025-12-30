@@ -27,8 +27,5 @@
 
 - name: Display final build results
   debug:
-    msg: |
-      Successfully processed {{ selected_references | length }} references
-      Build directory: {{ build_dir | default(dest_base + '/bulk') }}
-      Ready for deployment with: ansible-playbook -i hosts main_playbooks/deploy_by_id.yml
+    msg: "Files ready in directory: {{ build_dir | default(dest_base + '/bulk') }}/ "
   when: selected_references is defined and selected_references | length > 0
