@@ -1,0 +1,44 @@
+---
+- name: Set reference variables for {{ reference.filename }}
+  set_fact:
+    ref_id: "{{ reference.id }}"
+    ref_filename: "{{ reference.filename }}"
+    ref_data_stream: "{{ reference.data_stream }}"
+    ref_pipeline: "{{ reference.pipeline }}"
+
+- name: Find bulk file for {{ ref_filename }}
+  find:
+    paths: "{{ bulk_source_dir }}"
+    patterns: "{{ ref_filename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+  register: bulk_files
+
+- name: Deploy {{ ref_filename }} to Elasticsearch
+  uri:
+    url: "{{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}/{{ ref_data_stream }}/_bulk?pipeline={{ ref_pipeline }}"
+    method: POST
+    headers:
+      Authorization: "ApiKey {{ elastic_api_key }}"
+      Content-Type: "application/x-ndjson"
+    body: "{{ lookup('file', item.path) }}"
+    validate_certs: "{{ not skip_ssl_verify }}"
+    timeout: "{{ deployment_timeout }}"
+    status_code: [200, 201]
+  loop: "{{ bulk_files.files }}"
+  register: bulk_responses
+  when: bulk_files.files | length > 0
+
+- name: Check for bulk ingestion errors for {{ ref_filename }}
+  fail:
+    msg: "Bulk ingestion failed for {{ item.item.path }}: {{ item.content | to_json }}"
+  loop: "{{ bulk_responses.results }}"
+  when:
+    - bulk_responses.results is defined
+    - item.status not in [200, 201]
+
+- name: Display results for {{ ref_filename }}
+  debug:
+    msg: "File: {{ item.item.path | basename }} - Status: {{ item.status }} - Items processed: {{ (item.content | from_json).items | length if item.content is defined else 'unknown' }}"
+  loop: "{{ bulk_responses.results }}"
+  when:
+    - bulk_responses.results is defined
+    - item.status in [200, 201]

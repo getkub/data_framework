@@ -1,0 +1,8 @@
+---
+# Build configuration for elastic bulk conversion
+build_dir: "{{ dest_base }}/bulk"
+data_source_dir: "{{ src_base }}/data"
+
+# Timestamp update configuration
+# Timestamps are automatically updated to current date/hour while preserving original minutes/seconds
+# This maintains event sequence timing while making events appear current

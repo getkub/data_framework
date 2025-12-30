@@ -1,11 +1,11 @@
-id,filename,rule_name,logic
-401,bruteforce_attack.ndjson,credential_access_bruteforce_multiple_logon_failure_followed_by_success.toml,5+ failed logons (Event ID 4625) followed by successful logon (Event ID 4624) for same user/source
-402,lsass_dump.ndjson,credential_access_suspicious_lsass_access_memdump.toml,Sysmon Event ID 10 (ProcessAccess) targeting lsass.exe with CallTrace containing dbghelp.dll or dbgcore.dll
-403,powershell_mimikatz.ndjson,credential_access_mimikatz_powershell_module.toml,"PowerShell Script Block logging detecting Mimikatz keywords like ""sekurlsa::logonpasswords"", ""DumpCreds"", ""DumpCerts"""
-404,webshell_attack.ndjson,persistence_webshell_detection.toml,"Web server process (w3wp.exe, httpd.exe, nginx.exe, php.exe, tomcat.exe) spawning script interpreters (cmd.exe, powershell.exe, wscript.exe)"
-405,defender_exclusion.ndjson,defense_evasion_defender_exclusion_via_powershell.toml,PowerShell process executing Add-MpPreference cmdlet to add exclusions to Windows Defender
-406,suspicious_service.ndjson,persistence_suspicious_service_creation.toml,"New service creation (Event ID 7045) with suspicious characteristics (encoded commands, unusual paths, known malware names)"
-407,pass_the_hash.ndjson,,Successful logon (Event ID 4624) with LogonType 3 (Network) and NTLM authentication from unusual source or with suspicious characteristics
-408,powershell_download.ndjson,execution_suspicious_powershell_download_execute.toml,"PowerShell executing download methods like DownloadString, DownloadFile, WebClient, Invoke-WebRequest with IEX (Invoke-Expression)"
-409,registry_persistence.ndjson,persistence_registry_run_keys.toml,Registry modification (Sysmon Event ID 13) to Run/RunOnce keys for persistence
-410,scheduled_task.ndjson,persistence_suspicious_scheduled_task_creation.toml,Event ID 4698 (scheduled task created) with suspicious characteristics
+id,filename,rule_name,data_stream,pipeline,logic
+401,bruteforce_attack.ndjson,credential_access_bruteforce_multiple_logon_failure_followed_by_success.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,5+ failed logons (Event ID 4625) followed by successful logon (Event ID 4624) for same user/source
+402,lsass_dump.ndjson,credential_access_suspicious_lsass_access_memdump.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,Sysmon Event ID 10 (ProcessAccess) targeting lsass.exe with CallTrace containing dbghelp.dll or dbgcore.dll
+403,powershell_mimikatz.ndjson,credential_access_mimikatz_powershell_module.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,"PowerShell Script Block logging detecting Mimikatz keywords like ""sekurlsa::logonpasswords"", ""DumpCreds"", ""DumpCerts"""
+404,webshell_attack.ndjson,persistence_webshell_detection.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,"Web server process (w3wp.exe, httpd.exe, nginx.exe, php.exe, tomcat.exe) spawning script interpreters (cmd.exe, powershell.exe, wscript.exe)"
+405,defender_exclusion.ndjson,defense_evasion_defender_exclusion_via_powershell.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,PowerShell process executing Add-MpPreference cmdlet to add exclusions to Windows Defender
+406,suspicious_service.ndjson,persistence_suspicious_service_creation.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,"New service creation (Event ID 7045) with suspicious characteristics (encoded commands, unusual paths, known malware names)"
+407,pass_the_hash.ndjson,,logs-windows.security-default,logs-system.security-2.6.3-standard,Successful logon (Event ID 4624) with LogonType 3 (Network) and NTLM authentication from unusual source or with suspicious characteristics
+408,powershell_download.ndjson,execution_suspicious_powershell_download_execute.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,"PowerShell executing download methods like DownloadString, DownloadFile, WebClient, Invoke-WebRequest with IEX (Invoke-Expression)"
+409,registry_persistence.ndjson,persistence_registry_run_keys.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,Registry modification (Sysmon Event ID 13) to Run/RunOnce keys for persistence
+410,scheduled_task.ndjson,persistence_suspicious_scheduled_task_creation.toml,logs-windows.security-default,logs-system.security-2.6.3-standard,Event ID 4698 (scheduled task created) with suspicious characteristics

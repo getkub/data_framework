@@ -1,0 +1,22 @@
+---
+- name: Combine all reference CSV files
+  shell: |
+    cat {{ playbook_dir }}/../../data/sequence/security/01*.csv | head -1 > /tmp/combined_references.csv
+    tail -n +2 {{ playbook_dir }}/../../data/sequence/security/01*.csv >> /tmp/combined_references.csv
+  args:
+    executable: /bin/bash
+
+- name: Read combined CSV data
+  read_csv:
+    path: /tmp/combined_references.csv
+    key: id
+  register: csv_data
+
+- name: Filter references by IDs across all CSV files
+  set_fact:
+    selected_references: "{{ csv_data.dict | dict2items | selectattr('key', 'in', reference_ids) | map(attribute='value') | list }}"
+
+- name: Display selected references
+  debug:
+    msg: "Selected {{ selected_references | default([]) | length }} references: {{ selected_references | default([]) | map(attribute='filename') | list }}"
+  when: selected_references is defined

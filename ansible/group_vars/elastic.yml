@@ -1,0 +1,19 @@
+---
+# Elasticsearch cluster configuration for data ingestion
+elastic_host: "localhost"
+elastic_port: "9200"
+elastic_protocol: "https"
+
+# Authentication - can be overridden by environment variable ELASTIC_API_KEY
+# elastic_api_key: "your_api_key_here"
+
+# Data streams and pipelines are now defined in the CSV reference files
+# Each reference entry contains its specific data_stream and pipeline
+
+# Build configuration
+build_dir: "{{ dest_base }}/bulk"
+data_source_dir: "{{ src_base }}/data"
+
+# Deployment configuration
+skip_ssl_verify: true
+deployment_timeout: 300

@@ -1,0 +1,18 @@
+---
+# Elasticsearch cluster configuration
+elastic_host: "localhost"
+elastic_port: "9200"
+elastic_protocol: "https"
+elastic_api_key: "{{ lookup('env', 'ELASTIC_API_KEY') | default('YOUR_API_KEY') }}"
+
+# Data stream and pipeline configuration
+elastic_data_stream: "logs-windows.security-default"
+elastic_pipeline: "logs-system.security-2.6.3-standard"
+
+# Bulk file configuration
+bulk_source_dir: "{{ build_dir | default(dest_base + '/bulk') }}"
+bulk_file_pattern: "*.bulk.ndjson"
+
+# Deployment options
+skip_ssl_verify: true
+deployment_timeout: 300

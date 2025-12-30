@@ -1,0 +1,37 @@
+---
+- name: Set reference variables for {{ reference.filename }}
+  set_fact:
+    ref_id: "{{ reference.id }}"
+    ref_filename: "{{ reference.filename }}"
+    ref_data_stream: "{{ reference.data_stream }}"
+    ref_pipeline: "{{ reference.pipeline }}"
+
+- name: Determine data source directory for {{ ref_filename }}
+  set_fact:
+    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security/{{ 'linux' if 'linux' in ref_data_stream else 'windows' if 'windows' in ref_data_stream else 'network' }}"
+
+- name: Find specific .ndjson file {{ ref_filename }}
+  find:
+    paths: "{{ data_source_dir }}"
+    patterns: "{{ ref_filename }}"
+  register: ndjson_files
+
+- name: Convert {{ ref_filename }} to Elasticsearch bulk format
+  command: |
+    python3 "{{ role_path }}/files/convert_ndjson_to_bulk.py"
+            "{{ ndjson_file.path }}"
+            "{{ build_dir | default(dest_base + '/bulk') }}/{{ ndjson_file.path | basename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+            "{{ time_offset_minutes | default(0) }}"
+  loop: "{{ ndjson_files.files }}"
+  loop_control:
+    loop_var: ndjson_file
+  args:
+    chdir: "{{ build_dir | default(dest_base + '/bulk') }}"
+  when: ndjson_files.files | length > 0
+
+- name: Verify {{ ref_filename }} bulk file was created
+  stat:
+    path: "{{ build_dir | default(dest_base + '/bulk') }}/{{ item.path | basename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+  loop: "{{ ndjson_files.files }}"
+  register: bulk_files_check
+  when: ndjson_files.files | length > 0

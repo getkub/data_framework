@@ -4,7 +4,7 @@
 src_base: ".."
 src_base_playbook: "{{playbook_dir}}"
 project: "df"
-dest_base: "/tmp/{{ansible_user_id}}/{{project}}"
+dest_base: "/tmp/{{ansible_facts['user_id']}}/{{project}}"
 configs: "configs"
 buildDir: "buildDir"
 

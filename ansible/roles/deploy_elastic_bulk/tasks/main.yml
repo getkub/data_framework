@@ -1,0 +1,13 @@
+---
+- name: Process each selected reference for deployment
+  include_tasks: "{{playbook_dir}}/../roles/deploy_elastic_bulk/tasks/process_reference.yml"
+  loop: "{{ selected_references | default([]) }}"
+  loop_control:
+    loop_var: reference
+  when: selected_references is defined and selected_references | length > 0
+
+- name: Display final deployment results
+  debug:
+    msg: |
+      Successfully processed {{ selected_references | length }} references for deployment
+  when: selected_references is defined and selected_references | length > 0

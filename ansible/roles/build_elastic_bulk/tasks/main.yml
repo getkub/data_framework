@@ -1,0 +1,34 @@
+---
+- name: Create build directory for bulk files
+  file:
+    path: "{{ build_dir | default(dest_base + '/bulk') }}"
+    state: directory
+    mode: '0755'
+
+- name: Clean build directory completely
+  file:
+    path: "{{ build_dir | default(dest_base + '/bulk') }}"
+    state: absent
+
+- name: Recreate build directory
+  file:
+    path: "{{ build_dir | default(dest_base + '/bulk') }}"
+    state: directory
+    mode: '0755'
+
+
+
+- name: Process each selected reference for build
+  include_tasks: "{{playbook_dir}}/../roles/build_elastic_bulk/tasks/process_reference.yml"
+  loop: "{{ selected_references | default([]) }}"
+  loop_control:
+    loop_var: reference
+  when: selected_references is defined and selected_references | length > 0
+
+- name: Display final build results
+  debug:
+    msg: |
+      Successfully processed {{ selected_references | length }} references
+      Build directory: {{ build_dir | default(dest_base + '/bulk') }}
+      Ready for deployment with: ansible-playbook -i hosts main_playbooks/deploy_by_id.yml
+  when: selected_references is defined and selected_references | length > 0

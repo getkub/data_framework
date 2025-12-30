@@ -1,0 +1,20 @@
+---
+- name: Deploy Data by Reference ID
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - "{{playbook_dir}}/../group_vars/common.yml"
+    - "{{playbook_dir}}/../group_vars/elastic.yml"
+  vars:
+    # Required variables - must be passed when running playbook
+    # reference_ids: List of reference IDs to deploy (e.g., [401, 101])
+
+  pre_tasks:
+    - name: Validate required variables
+      fail:
+        msg: "reference_ids variable is required"
+      when: reference_ids is not defined
+
+  roles:
+    - "{{playbook_dir}}/../roles/load_csv_references"
+    - "{{playbook_dir}}/../roles/deploy_elastic_bulk"

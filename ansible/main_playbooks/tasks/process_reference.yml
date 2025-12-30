@@ -1,0 +1,42 @@
+- name: Set reference variables
+  set_fact:
+    ref_id: "{{ reference.id }}"
+    ref_filename: "{{ reference.filename }}"
+    ref_rule_name: "{{ reference.rule_name }}"
+    ref_data_stream: "{{ reference.data_stream }}"
+    ref_pipeline: "{{ reference.pipeline }}"
+    ref_logic: "{{ reference.logic }}"
+
+- name: Determine data source directory based on data stream
+  set_fact:
+    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security/{{ 'linux' if 'linux' in ref_data_stream else 'windows' if 'windows' in ref_data_stream else 'network' }}"
+  register: data_source_result
+
+
+- name: Build elastic bulk data for reference {{ ref_id }}
+  include_role:
+    name: "{{playbook_dir}}/../roles/build_elastic_bulk"
+  vars:
+    source_dir: "{{ data_source_dir }}"
+    source_file: "{{ ref_filename }}"
+    elastic_data_stream: "{{ ref_data_stream }}"
+    elastic_pipeline: "{{ ref_pipeline }}"
+  when: skip_build is not defined or not skip_build
+
+- name: Deploy elastic bulk data for reference {{ ref_id }}
+  include_role:
+    name: "{{playbook_dir}}/../roles/deploy_elastic_bulk"
+  vars:
+    source_file: "{{ ref_filename | regex_replace('\\.ndjson$', '') }}.bulk.ndjson"
+    elastic_data_stream: "{{ ref_data_stream }}"
+    elastic_pipeline: "{{ ref_pipeline }}"
+  when: skip_deploy is not defined or not skip_deploy
+
+- name: Display completion for reference {{ ref_id }}
+  debug:
+    msg: |
+      {% if skip_build is defined and skip_build -%}
+      Completed deployment of {{ ref_filename }} (ID: {{ ref_id }}) to {{ ref_data_stream }}
+      {% else -%}
+      Completed build of {{ ref_filename }} (ID: {{ ref_id }}) for {{ ref_data_stream }}
+      {%- endif %}
