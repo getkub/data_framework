@@ -7,5 +7,4 @@
     - "{{playbook_dir}}/../group_vars/elastic.yml"
 
   roles:
-    - "{{playbook_dir}}/../roles/load_csv_references"
     - "{{playbook_dir}}/../roles/deploy_elastic_bulk"

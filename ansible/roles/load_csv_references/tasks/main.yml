@@ -22,7 +22,7 @@
     selected_references: "{{ csv_data.dict | dict2items | map(attribute='value') | list }}"
   when: reference_ids is not defined
 
-- name: Display selected references
+- name: Display selected references count
   debug:
-    msg: "Selected {{ selected_references | default([]) | length }} references: {{ selected_references | default([]) | map(attribute='filename') | list }}"
+    msg: "Loaded {{ selected_references | default([]) | length }} references"
   when: selected_references is defined
