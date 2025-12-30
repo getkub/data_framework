@@ -15,6 +15,14 @@
     timeout: "{{ deployment_timeout }}"
     status_code: [200, 201]
   register: bulk_responses
+  ignore_errors: true
+
+- name: Check for connection errors
+  fail:
+    msg: "Cannot connect to Elasticsearch at {{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}. Please ensure Elasticsearch is running and accessible."
+  when:
+    - bulk_responses.status is defined
+    - bulk_responses.status == -1
 
 - name: Check for bulk ingestion errors for {{ bulk_filename }}
   fail:
@@ -22,6 +30,7 @@
   when:
     - bulk_responses.status is defined
     - bulk_responses.status not in [200, 201]
+    - bulk_responses.status != -1
 
 - name: Display results for {{ bulk_filename }}
   debug:
