@@ -18,6 +18,16 @@
       dict: "{{ csv_file_data.results | map(attribute='dict') | combine }}"
       list: "{{ csv_file_data.results | map(attribute='list') | flatten }}"
 
+- name: Load pipeline mapping CSV
+  read_csv:
+    path: "{{ playbook_dir }}/../../data/sequence/security/data_stream_pipeline_mapping.csv"
+    key: data_stream
+  register: pipeline_mapping_data
+
+- name: Set pipeline mapping as a dictionary
+  set_fact:
+    pipeline_mapping: "{{ pipeline_mapping_data.dict }}"
+
 - name: Filter references by IDs across all CSV files (if reference_ids provided)
   set_fact:
     selected_references: "{{ csv_data.dict | dict2items | selectattr('key', 'in', reference_ids) | map(attribute='value') | list }}"

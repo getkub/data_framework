@@ -3,9 +3,27 @@
   set_fact:
     bulk_filename: "{{ bulk_file.path | basename | regex_replace('\\.bulk\\.ndjson$', '') }}"
 
+- name: Read metadata file for {{ bulk_filename }}
+  slurp:
+    src: "{{ bulk_source_dir | dirname }}/bulk_metadata/{{ bulk_filename }}.bulk.meta"
+  register: metadata_file
+  ignore_errors: true
+
+- name: Parse metadata for {{ bulk_filename }}
+  set_fact:
+    file_data_stream: "{{ (metadata_file.content | b64decode | from_yaml).data_stream | default(elastic_data_stream | default('logs-windows.security-default')) }}"
+    file_pipeline: "{{ (metadata_file.content | b64decode | from_yaml).pipeline | default(elastic_pipeline | default('')) }}"
+  when: metadata_file.content is defined
+
+- name: Set defaults if metadata not found
+  set_fact:
+    file_data_stream: "{{ elastic_data_stream | default('logs-windows.security-default') }}"
+    file_pipeline: "{{ elastic_pipeline | default('') }}"
+  when: metadata_file.content is not defined
+
 - name: Deploy {{ bulk_filename }}.bulk.ndjson to Elasticsearch
   uri:
-    url: "{{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}/{{ elastic_data_stream | default('logs-windows.security-default') }}/_bulk?pipeline={{ elastic_pipeline | default('logs-system.security-2.6.3-standard') }}"
+    url: "{{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}/{{ file_data_stream }}/_bulk{% if file_pipeline %}?pipeline={{ file_pipeline }}{% endif %}"
     method: POST
     headers:
       Authorization: "ApiKey {{ elastic_api_key }}"

@@ -4,7 +4,7 @@
     ref_id: "{{ reference.id }}"
     ref_filename: "{{ reference.filename }}"
     ref_data_stream: "{{ reference.data_stream }}"
-    ref_pipeline: "{{ reference.pipeline }}"
+    ref_pipeline: "{{ pipeline_mapping[reference.data_stream] | default(omit) }}"
 
 - name: Determine data source directory for {{ ref_filename }}
   set_fact:
@@ -27,6 +27,24 @@
     loop_var: ndjson_file
   args:
     chdir: "{{ build_dir | default(dest_base + '/bulk') }}"
+  when: ndjson_files.files | length > 0
+
+- name: Create metadata directory (parallel to bulk directory)
+  file:
+    path: "{{ build_dir | default(dest_base + '/bulk') | dirname }}/bulk_metadata"
+    state: directory
+    mode: '0755'
+
+- name: Create pipeline metadata file for {{ ref_filename }}
+  copy:
+    content: |
+      data_stream: {{ ref_data_stream }}
+      pipeline: {{ ref_pipeline.ingest_pipeline | default('') }}
+    dest: "{{ build_dir | default(dest_base + '/bulk') | dirname }}/bulk_metadata/{{ ndjson_file.path | basename | splitext | first }}.bulk.meta"
+    mode: '0644'
+  loop: "{{ ndjson_files.files }}"
+  loop_control:
+    loop_var: ndjson_file
   when: ndjson_files.files | length > 0
 
 - name: Verify {{ ref_filename }} bulk file was created

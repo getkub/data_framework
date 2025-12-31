@@ -1,0 +1,3 @@
+data_stream,ingest_pipeline
+logs-linux.security-default,logs-system.security-2.6.3-standard
+logs-windows.security-default,logs-system.security-2.6.3-standard
