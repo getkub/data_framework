@@ -28,7 +28,7 @@
     headers:
       Authorization: "ApiKey {{ elastic_api_key }}"
       Content-Type: "application/x-ndjson"
-    body: "{{ lookup('file', bulk_file.path) }}"
+    body: "{{ lookup('file', bulk_file.path) }}\n"
     validate_certs: "{{ not skip_ssl_verify }}"
     timeout: "{{ deployment_timeout }}"
     status_code: [200, 201]
@@ -44,7 +44,7 @@
 
 - name: Check for bulk ingestion errors for {{ bulk_filename }}
   fail:
-    msg: "Bulk ingestion failed for {{ bulk_file.path }}: {{ bulk_responses.content | to_json }}"
+    msg: "Bulk ingestion failed for {{ bulk_file.path }}: {{ bulk_responses.json | default(bulk_responses.msg | default('Unknown error')) | to_json }}"
   when:
     - bulk_responses.status is defined
     - bulk_responses.status not in [200, 201]

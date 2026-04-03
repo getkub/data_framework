@@ -4,8 +4,8 @@ elastic_host: "localhost"
 elastic_port: "9200"
 elastic_protocol: "https"
 
-# Authentication - can be overridden by environment variable ELASTIC_API_KEY
-# elastic_api_key: "your_api_key_here"
+# Authentication - read from environment variable ELASTIC_API_KEY
+elastic_api_key: "{{ lookup('env', 'ELASTIC_API_KEY') }}"
 
 # Data streams and pipelines are now defined in the CSV reference files
 # Each reference entry contains its specific data_stream and pipeline

@@ -11,3 +11,4 @@ id,filename,rule_name,data_stream,logic
 110,privilege_escalation_uid_elevation_from_unknown_executable.ndjson,UID Elevation from Previously Unknown Executable,logs-linux.security-default,Monitors for privilege escalation to root via unknown executables
 111,hosts_file_modified_linux_file.ndjson,Hosts File Modification Detected,logs-linux.security-default,Detects modifications to /etc/hosts file indicating potential DNS poisoning or host redirection attacks
 112,hosts_file_modified_linux_process.ndjson,Suspicious Process Modifying Hosts File,logs-linux.security-default,Detects processes executing commands that modify the hosts file for malicious purposes
+113,Potential_Linux_Local_Account_Brute_Force_Detected.ndjson,Potential Linux Local Account Brute Force Detected,logs-endpoint.events.process-default,Detects multiple unusual su executions indicating a potential brute force attempt on local linux accounts

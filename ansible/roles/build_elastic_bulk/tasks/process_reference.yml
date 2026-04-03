@@ -6,14 +6,15 @@
     ref_data_stream: "{{ reference.data_stream }}"
     ref_pipeline: "{{ pipeline_mapping[reference.data_stream] | default(omit) }}"
 
-- name: Determine data source directory for {{ ref_filename }}
+- name: Determine data source directory
   set_fact:
-    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security/{{ ref_data_stream | regex_replace('logs-(.+?)\\..+', '\\1') }}"
+    data_source_dir: "{{ playbook_dir }}/../../data/sequence/security"
 
 - name: Find specific .ndjson file {{ ref_filename }}
   find:
     paths: "{{ data_source_dir }}"
     patterns: "{{ ref_filename }}"
+    recurse: yes
   register: ndjson_files
 
 - name: Convert {{ ref_filename }} to Elasticsearch bulk format
