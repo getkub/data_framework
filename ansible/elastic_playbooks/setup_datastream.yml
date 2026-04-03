@@ -1,0 +1,37 @@
+---
+- name: Ensure Elastic Data Stream Exists
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - "{{playbook_dir}}/../group_vars/common.yml"
+    - "{{playbook_dir}}/../group_vars/elastic.yml"
+  vars:
+    # Set default if not provided via -e "target_datastream=..."
+    target_datastream: "logs-endpoint.events.process-default"
+
+  tasks:
+    - name: Check if {{ target_datastream }} datastream exists
+      uri:
+        url: "{{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}/_data_stream/{{ target_datastream }}"
+        method: GET
+        headers:
+          Authorization: "ApiKey {{ elastic_api_key }}"
+        validate_certs: "{{ not skip_ssl_verify }}"
+        status_code: [200, 404]
+      register: ds_check
+      ignore_errors: true
+
+    - name: Ensure {{ target_datastream }} datastream is created
+      uri:
+        url: "{{ elastic_protocol }}://{{ elastic_host }}:{{ elastic_port }}/_data_stream/{{ target_datastream }}"
+        method: PUT
+        headers:
+          Authorization: "ApiKey {{ elastic_api_key }}"
+        validate_certs: "{{ not skip_ssl_verify }}"
+        status_code: [200, 400] # 400 could mean it already exists (resource_already_exists_exception)
+      when: ds_check.status == 404
+      register: ds_create
+
+    - name: Result of Datastream Creation
+      debug:
+        msg: "Datastream {{ target_datastream }} is ready for data insertion."
