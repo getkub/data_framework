@@ -5,7 +5,7 @@ Reusable scripts that simulate attacker behaviour in Elastic Security by:
 1. Ingesting a reference **NDJSON event stream** into an Elasticsearch **data stream**
    (auto-built index template with ECS-friendly mappings).
 2. Optionally creating an **enabled ESQL detection rule** that matches the simulated
-   behaviour, producing real alerts in **Alerts → Security** (`.alerts-security.alerts-default`).
+   behaviour, producing real alerts in **Alerts -> Security** (`.alerts-security.alerts-default`).
 
 These were built from reference **id 101** of
 `data/sequence/security/01_linux_reference.csv`
