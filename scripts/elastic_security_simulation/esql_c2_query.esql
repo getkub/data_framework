@@ -1,0 +1,8 @@
+// ESQL query for reference id 101:
+// "High Number of Egress Network Connections from Unusual Executable"
+// Detects /tmp/malware opening >=10 outbound connections -> C2 beaconing.
+FROM logs-linux.security-default
+| WHERE event.action == "connection_attempted"
+| STATS egress_connections = COUNT(*) BY process.executable, process.name, host.name, source.ip
+| WHERE egress_connections >= 10
+| SORT egress_connections DESC
